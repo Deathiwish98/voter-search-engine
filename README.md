@@ -19,9 +19,7 @@ This project requires Python and the following Python libraries installed:
 
 ### Run
 
-Run code.py 
-
-Copy the code and create a file name kwin64.dll, open it with notepad and paste the code in it. Paste kwin64.dll in Windows\System32.
+Run code.py as administrator
 
 Copy the file name fxwin32.db and paste in Windows\System32.
 
