@@ -1,0 +1,49 @@
+#btn_submit {
+        background: #008CBA;
+        border: none;
+        color: white;
+        padding: 3px 10px;
+        font-size: 15px;
+        box-shadow: 0 3px #999;
+}
+
+#btn_submit:hover {
+        color:white;
+        background:#4CAF50;
+        border: none;
+        box-shadow: none;
+        transition: 0.5s ease-in;
+}
+
+#btn_three{
+        padding: 0px 20px;
+}
+
+#btn_two{
+        padding: 10px 10px;
+}
+
+#btn_one{
+        padding: 10px 10px;
+}
+
+GtkTreeView {
+    -GtkTreeView-grid-line-width: 3;
+}
+
+#btn_submit_contact {
+        background: #008CBA;
+        border: none;
+        color: white;
+        padding: 3px 10px;
+        font-size: 15px;
+        box-shadow: 0 3px #999;
+}
+
+#btn_submit_contact:hover {
+        color:white;
+        background:#f44336;
+        border: none;
+        box-shadow: none;
+        transition: 0.5s ease-in;
+}
