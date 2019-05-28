@@ -1,10 +1,11 @@
 import gi
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, Gio, GObject
 import sqlite3
 import cairo
 import re
 import os
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk, Gio, GObject
+
 
 Screensize = Gdk.Screen.get_default()
 ScreenHeight = Screensize.get_height()
@@ -133,19 +134,18 @@ class VoterList(Gtk.Window):
         if len(self.result[8]) > 45:
             self.result[8] = self.result[8][:45] + "\n" + self.result[8][45:]
         self.dlabel_slip_pstation.set_markup("<span font = \"Calibri 11\" >{}</span>".format(self.result[8]))
-        self.fixed_voter_slip.put(self.dlabel_slip_pstation, 83, 104)
+        self.fixed_voter_slip.put(self.dlabel_slip_pstation, 83, 98)
 
         self.seperator_for_info = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         self.seperator_for_info.set_size_request(360, 0)
         self.fixed_voter_slip.put(self.seperator_for_info, 3, 132)
 
+        pattern_appeal = re.compile(r'appeal\s=\s"(.*?)"\s?')
+        appeal = pattern_appeal.search(configurations).group(1)
+
         self.label_ac_info = Gtk.Label()
         self.label_ac_info.set_markup(
-            "<span font = \"DV-TTYogesh 12\" >¨ÉiÉnÉxÉ </span>" + "<span font = \"Calibri 10\" >23 </span>" + "<span font "
-            "= \"DV-TTYogesh 12\" >+MÉºiÉ </span>" + "<span font = \"Calibri 10\" >2017 </span>" + "<span font = \"DV-TTYo"
-            "gesh 12\" >E Éä |ÉÉiÉ: </span>" + "<span font = \"Calibri 10\" >8:00 </span>" + "<span font = \"DV-TTYogesh 12"
-            "\" >ºÉä ºÉÉªÆÉ </span>" + "<span font = \"Calibri 10\" >5:30 </span>" + "<span font = \"DV-TTYogesh 12\" >¤"
-                                                                                     "ÉVÉä iÉE  +´É¶ªÉ E®</span>")
+            "{}".format(appeal))
         self.fixed_voter_slip.put(self.label_ac_info, 15, 134)
         self.add(self.Vbox_voter_slip)
         self.show_all()
@@ -173,8 +173,8 @@ class VoterList(Gtk.Window):
 
         cr = cairo.Context(surf)
         self.Vbox_voter_slip.draw(cr)
-        surf.write_to_png(os.path.join(path_desktop, "{}.png".format(self.result[3] + "  " + self.result[9])))
-        #surf.write_to_png("test.png")
+        #surf.write_to_png(os.path.join(path_desktop, "{}.png".format(self.result[3] + "  " + self.result[9])))
+        surf.write_to_png(os.path.join(path_desktop, "Voter_slip.png"))
 
         self.Vbox_voter_slip.reparent(original_parent)
 
@@ -439,11 +439,11 @@ class MainWindow(Gtk.Window):
         self.label_regto = Gtk.Label()
         self.label_regto.set_markup("<span font = \"Arial Italic 12\" foreground=\"black\" >Licensed To:</span>")
         self.label_candname = Gtk.Label()
-        pattern_cand_name = re.compile(r'name_cand\s=\s"(\w+)"\s?')
+        pattern_cand_name = re.compile(r'name_cand\s=\s"([\s\w.]+)"\s?')
         cand_name = pattern_cand_name.search(configurations).group(1)
         self.label_candname.set_markup("<span font = \"Arial Italic 12\" foreground=\"black\" >{}</span>".format(cand_name))
         self.label_Party = Gtk.Label()
-        pattern_party_name = re.compile(r'name_party\s=\s"(\w+)"\s?')
+        pattern_party_name = re.compile(r'name_party\s=\s"([\s\w.]+)"\s?')
         party_name = pattern_party_name.search(configurations).group(1)
         self.label_Party.set_markup("<span font = \"Arial Italic 12\" foreground=\"black\" >{}</span>".format(party_name))
         self.Hbox_Upper.pack_end(self.image_candidate, False, False, 5)
